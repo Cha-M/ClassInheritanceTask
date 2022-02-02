@@ -89,6 +89,7 @@ class Cars {
     
 // }
 
+let staffNumArray = ["4320", "4321", "4322"];
 class staffCars extends Cars {
     constructor(reg, arrival, staffNum, credits) {
         super(reg, arrival);
@@ -96,21 +97,39 @@ class staffCars extends Cars {
         // this._arrival = ;
         this._staffNum = staffNum;
         this._credits = credits;
+        this._numVerified = false;
     }
 
     doDeparture(n) {
-        super.doDeparture(n);
+        if (this._numVerified) {
+            super.doDeparture(n);
+        }
     }
     demandPayment() {
-        super.demandPayment();
+        if (this._numVerified) {
+            super.demandPayment();
+        }
+        // super.demandPayment();
     }
     resolveBalance() {
-        super.resolveBalance();
+        if (this._numVerified) {
+            alert("Number verified.");
+            super.resolveBalance();
+        }
+        // super.resolveBalance();
     }
     carExit() {
-        super.carExit();            
+        if (this._numVerified) {
+            super.carExit();
+        }
+        // super.carExit();            
     }
     
+    verifyNum() {
+        if (staffNumArray.includes(this._staffNum)) {
+            this._numVerified = true;
+        }
+    }
 
     useCredits() {
         // alert("Hi, usecredits", `Pay (${this._departure})(${this._arrival}) (${this._hourlyRate})`);
@@ -120,15 +139,16 @@ class staffCars extends Cars {
         this._credits = 0;
 
         // let n = this.payTotal() - this._amountPaid;
-        // alert(`You have used your credits and have ${n} left to pay.`);
+        //alert(`You have used your credits and have ${n} left to pay.`);
     }
     
 }
 
 let workerCar = new staffCars("123A", 5, "4321", 7);
 
+workerCar.verifyNum();
 workerCar.doDeparture(10);
 workerCar.demandPayment();
 workerCar.useCredits();
 workerCar.resolveBalance();
-workerCar.carExit();
+// workerCar.carExit();
